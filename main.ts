@@ -1,8 +1,12 @@
-export function add(a: number, b: number): number {
-  return a + b;
-}
+import { Application } from "https://deno.land/x/oak/mod.ts";
+import authRouter from "./src/auth/api/routes/authRouter.ts";
 
-// Learn more at https://docs.deno.com/runtime/manual/examples/module_metadata#concepts
+const app = new Application();
+
+app.use(authRouter.routes());
+app.use(authRouter.allowedMethods());
+
 if (import.meta.main) {
-  console.log("Add 2 + 3 =", add(2, 3));
+  console.log("Listening on http://localhost:8081");
+  await app.listen({ port: 8081 });
 }
