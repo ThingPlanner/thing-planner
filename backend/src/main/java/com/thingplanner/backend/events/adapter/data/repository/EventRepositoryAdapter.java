@@ -3,6 +3,7 @@ package com.thingplanner.backend.events.adapter.data.repository;
 import com.sun.jdi.request.EventRequest;
 import com.thingplanner.backend.events.adapter.data.entity.EventEntity;
 import com.thingplanner.backend.events.bootstrap.config.repository.EventRepositorySpringData;
+import com.thingplanner.backend.events.bootstrap.mapper.EventMapper;
 import com.thingplanner.backend.events.core.model.EventModel;
 import com.thingplanner.backend.events.core.port.outbound.EventRepositoryPort;
 import org.springframework.stereotype.Repository;
@@ -14,17 +15,17 @@ import java.util.Set;
 public class EventRepositoryAdapter implements EventRepositoryPort {
 
     private final EventRepositorySpringData jpaRepository;
+    private final EventMapper eventMapper;
 
-    public EventRepositoryAdapter(EventRepositorySpringData jpaRepository) {
+    public EventRepositoryAdapter(EventRepositorySpringData jpaRepository, EventMapper eventMapper) {
         this.jpaRepository = jpaRepository;
+        this.eventMapper = eventMapper;
     }
-
 
     @Override
     public void save(EventModel eventModel) {
-        EventEntity eventEntity = EventEntity.fromCore(eventModel);
+        EventEntity eventEntity = eventMapper.modelToEntity(eventModel);
         EventEntity eventEntitySaved = jpaRepository.save(eventEntity);
-        return eventEntitySaved.toCore();
     }
 
     @Override
