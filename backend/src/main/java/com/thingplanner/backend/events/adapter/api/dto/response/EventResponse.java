@@ -1,4 +1,11 @@
 package com.thingplanner.backend.events.adapter.api.dto.response;
 
-public record EventResponse() {
-}
+import java.time.ZonedDateTime;
+
+public record EventResponse(
+        Long id,
+        String name,
+        EventTypeResponse eventType,
+        ZonedDateTime startDateTime,
+        ZonedDateTime endDateTime
+) {}
