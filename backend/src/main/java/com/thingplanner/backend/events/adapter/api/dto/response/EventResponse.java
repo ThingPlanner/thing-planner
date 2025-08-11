@@ -8,4 +8,4 @@ public record EventResponse(
         EventTypeResponse eventType,
         ZonedDateTime startDateTime,
         ZonedDateTime endDateTime
-) {}
+) implements EventApiResponse {}
