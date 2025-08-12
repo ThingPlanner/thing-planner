@@ -28,9 +28,8 @@ public class EventServiceImpl implements EventServicePort {
     }
 
     @Override
-    public Set<EventModel> findByFields(EventFilter eventFilter) {
-        return eventRepositoryPort.findByFields(eventFilter)
-                .orElse(Collections.emptySet());
+    public Set<EventModel> findEvent(EventFilter eventFilter) {
+        return eventRepositoryPort.findEvent(eventFilter);
     }
 
     @Override
