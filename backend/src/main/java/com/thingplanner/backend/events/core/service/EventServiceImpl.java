@@ -34,13 +34,8 @@ public class EventServiceImpl implements EventServicePort {
     }
 
     @Override
-    public EventResponse findById(EventRequest request) {
-        return null;
-    }
-
-    @Override
-    public EventResponse search(EventRequest request) {
-        return null;
+    public void updateEvent(EventFilter eventFilter) {
+        eventRepositoryPort.updateEvent(eventFilter);
     }
 
     @Override
