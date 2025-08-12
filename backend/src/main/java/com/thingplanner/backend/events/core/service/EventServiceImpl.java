@@ -44,12 +44,7 @@ public class EventServiceImpl implements EventServicePort {
     }
 
     @Override
-    public void update(EventRequest request) {
-        return null;
-    }
-
-    @Override
-    public void delete(EventRequest request) {
-        return null;
+    public void deleteEvent(EventFilter eventFilter) {
+        eventRepositoryPort.findEvent(eventFilter);
     }
 }
