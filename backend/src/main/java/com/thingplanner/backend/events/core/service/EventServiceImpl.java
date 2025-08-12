@@ -23,8 +23,8 @@ public class EventServiceImpl implements EventServicePort {
     }
 
     @Override
-    public void create(EventRequest request) {
-        return null;
+    public void createEvent(EventFilter eventFilter) {
+        eventRepositoryPort.createEvent(eventFilter);
     }
 
     @Override
