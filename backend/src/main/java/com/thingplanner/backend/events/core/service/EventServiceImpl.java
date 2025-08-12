@@ -1,15 +1,11 @@
 package com.thingplanner.backend.events.core.service;
 
-import com.thingplanner.backend.events.adapter.api.dto.request.EventRequest;
-import com.thingplanner.backend.events.adapter.api.dto.response.EventResponse;
 import com.thingplanner.backend.events.bootstrap.mapper.EventMapper;
 import com.thingplanner.backend.events.core.filter.EventFilter;
 import com.thingplanner.backend.events.core.model.EventModel;
 import com.thingplanner.backend.events.core.port.inbound.EventServicePort;
 import com.thingplanner.backend.events.core.port.outbound.EventRepositoryPort;
 
-import java.util.Collections;
-import java.util.Optional;
 import java.util.Set;
 
 public class EventServiceImpl implements EventServicePort {
