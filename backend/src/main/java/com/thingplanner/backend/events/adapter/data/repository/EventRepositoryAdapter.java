@@ -34,6 +34,22 @@ public class EventRepositoryAdapter implements EventRepositoryPort {
     }
 
     @Override
+    public Set<EventModel> findEvent(EventFilter eventFilter) {
+        Specification<EventEntity> spec = eventSpec(
+                eventFilter.id(),
+                eventFilter.name(),
+                eventFilter.eventType().id(),
+                eventFilter.eventType().name(),
+                eventFilter.startDateTime(),
+                eventFilter.endDateTime()
+        );
+
+        return jpaRepository.findAll(spec).stream()
+                .map(eventMapper::entityToModel)
+                .collect(Collectors.toSet());
+    }
+
+    @Override
     public Optional<Set<EventModel>> findByFields(EventModel eventModel) {
         return Optional.empty();
     }
