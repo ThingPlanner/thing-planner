@@ -34,16 +34,11 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-web")
 
-    // https://mvnrepository.com/artifact/org.projectlombok/lombok
-    implementation("org.projectlombok:lombok:1.18.38")
-    annotationProcessor("org.projectlombok:lombok")
-
-    // https://mvnrepository.com/artifact/org.mapstruct/mapstruct
-    implementation("org.mapstruct:mapstruct:1.6.3")
-    annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
-
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.5.4")
+
+    // https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api
+    implementation("jakarta.validation:jakarta.validation-api:3.1.1")
 }
 
 dependencyManagement {
