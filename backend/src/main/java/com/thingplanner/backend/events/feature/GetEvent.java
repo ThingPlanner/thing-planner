@@ -59,6 +59,14 @@ record GetEventRequest (
         ZonedDateTime endDateTime
 ) {};
 
+record GetEventResponse (
+        UUID id,
+        String name,
+        EventType eventType,
+        ZonedDateTime startDateTime,
+        ZonedDateTime endDateTime
+) {};
+
 @Service
 class GetEventService {
     private final EventRepository eventRepository;
