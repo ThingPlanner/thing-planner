@@ -1,4 +1,4 @@
-package com.thingplanner.backend.mevents.model;
+package com.thingplanner.backend.events.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,6 +16,7 @@ public class EventType {
     @Column(name = "name")
     private String name;
 
+    public EventType() {}
     public EventType(Builder builder) {}
 
     public static class Builder {

@@ -1,9 +1,9 @@
-package com.thingplanner.backend.mevents.feature;
+package com.thingplanner.backend.events.feature;
 
-import com.thingplanner.backend.mevents.bootstrap.exception.MalformedRequestException;
-import com.thingplanner.backend.mevents.model.EventRepository;
-import com.thingplanner.backend.mevents.model.Event;
-import com.thingplanner.backend.mevents.model.EventType;
+import com.thingplanner.backend.events.bootstrap.exception.MalformedRequestException;
+import com.thingplanner.backend.events.model.EventRepository;
+import com.thingplanner.backend.events.model.Event;
+import com.thingplanner.backend.events.model.EventType;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;

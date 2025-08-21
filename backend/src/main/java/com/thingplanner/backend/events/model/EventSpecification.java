@@ -1,4 +1,4 @@
-package com.thingplanner.backend.mevents.model;
+package com.thingplanner.backend.events.model;
 
 import org.springframework.data.jpa.domain.Specification;
 

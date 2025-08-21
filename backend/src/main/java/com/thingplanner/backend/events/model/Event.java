@@ -1,9 +1,7 @@
-package com.thingplanner.backend.mevents.model;
+package com.thingplanner.backend.events.model;
 
 import com.sun.jdi.InvalidTypeException;
-import com.thingplanner.backend.mevents.bootstrap.exception.MalformedRequestException;
 import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
 
 import java.time.ZonedDateTime;
 import java.util.UUID;

@@ -1,4 +1,4 @@
-package com.thingplanner.backend.mevents;
+package com.thingplanner.backend.events;
 
 
 import org.junit.jupiter.api.extension.ExtendWith;
