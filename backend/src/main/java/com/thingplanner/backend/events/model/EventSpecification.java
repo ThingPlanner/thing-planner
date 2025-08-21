@@ -5,12 +5,14 @@ import org.springframework.data.jpa.domain.Specification;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
 import jakarta.persistence.criteria.Predicate;
 
 public class EventSpecification {
 
-    public static Specification<Event> eventSpec(
-            Long id,
+    public static Specification<Event> getEventSpec(
+            UUID id,
             String name,
             Long eventTypeId,
             String eventTypeName,
