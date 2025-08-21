@@ -58,3 +58,29 @@ record GetEventRequest (
         ZonedDateTime startDateTime,
         ZonedDateTime endDateTime
 ) {};
+
+@Service
+class GetEventService {
+    private final EventRepository eventRepository;
+
+    public GetEventService(EventRepository eventRepository) {
+        this.eventRepository = eventRepository;
+    }
+
+    public GetEventResponse get(GetEventRequest request) {
+        var spec = getEventSpec(
+                request.id(),
+                request.name(),
+                request.eventType().getId(),
+                request.eventType().getName(),
+                request.startDateTime(),
+                request.endDateTime()
+        );
+
+        eventRepository.findAll(spec))
+    }
+
+    public GetEventResponse getById(UUID id) {
+        return eventRepository.findOne(id);
+    }
+}
