@@ -38,3 +38,10 @@ CREATE TABLE IF NOT EXISTS organizations_pages (
         ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS pages (
+    id UUID PRIMARY KEY NOT NULL,
+    name VARCHAR(50) NOT NULL
+);
+
+
+
