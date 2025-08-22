@@ -54,6 +54,7 @@ class GetEventApi {
     }
 }
 
+
 record GetEventRequest (
         @NotNull(message = "Event id cannot be null")
         @Size(min = 36, message = "Event id must be UUID")
@@ -64,6 +65,7 @@ record GetEventRequest (
         ZonedDateTime endDateTime
 ) {};
 
+
 record GetEventResponse (
         UUID id,
         String name,
@@ -71,6 +73,7 @@ record GetEventResponse (
         ZonedDateTime startDateTime,
         ZonedDateTime endDateTime
 ) {};
+
 
 @Service
 class GetEventService {
@@ -110,7 +113,6 @@ class GetEventService {
                         event.getEventType(),
                         event.getStartDateTime(),
                         event.getEndDateTime()
-                ))
-                .orElseThrow(new RuntimeException("Could not find event.");
+                ));
     }
 }
