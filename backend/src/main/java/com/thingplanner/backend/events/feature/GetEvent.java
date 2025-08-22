@@ -85,7 +85,16 @@ class GetEventService {
                 request.endDateTime()
         );
 
-        eventRepository.findAll(spec))
+        return eventRepository.findAll()
+                .stream()
+                .map(event -> new GetEventResponse(
+                        event.getId(),
+                        event.getName(),
+                        event.getEventType(),
+                        event.getStartDateTime(),
+                        event.getEndDateTime()
+                ))
+                .collect(Collectors.toList());
     }
 
     public Optional<GetEventResponse> getById(UUID id) {
