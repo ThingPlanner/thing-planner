@@ -88,7 +88,15 @@ class GetEventService {
         eventRepository.findAll(spec))
     }
 
-    public GetEventResponse getById(UUID id) {
-        return eventRepository.findOne(id);
+    public Optional<GetEventResponse> getById(UUID id) {
+        return eventRepository.findById(id)
+                .map(event -> new GetEventResponse(
+                        event.getId(),
+                        event.getName(),
+                        event.getEventType(),
+                        event.getStartDateTime(),
+                        event.getEndDateTime()
+                ))
+                .orElseThrow(new RuntimeException("Could not find event.");
     }
 }
