@@ -30,7 +30,7 @@ class GetEventApi {
         this.getEventService = getEventService;
     }
 
-    @RequestMapping("/get")
+    @GetMapping("/get")
     public ResponseEntity<?> getEvent(@Valid @RequestBody GetEventRequest request) {
         try {
             return ResponseEntity.status(HttpStatus.OK)
@@ -41,7 +41,7 @@ class GetEventApi {
         }
     }
 
-    @RequestMapping("/get{id}")
+    @GetMapping("/get{id}")
     public ResponseEntity<?> getEventById(@PathVariable UUID id) {
         try {
             return ResponseEntity.status(HttpStatus.OK)
