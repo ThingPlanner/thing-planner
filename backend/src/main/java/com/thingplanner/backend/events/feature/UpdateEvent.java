@@ -63,4 +63,19 @@ class UpdateEventService {
     public void updateEvent(UpdateEventRequest request) {
         //TODO: get entity, pass update spec / filter object, save and persist updated entity.
     }
+
+    private void mapFieldsToUpdate(UpdateEventRequest request, Event event) throws InvalidTypeException {
+        if (!request.name().isBlank() || !request.name().isEmpty()) {
+            event.setName(request.name());
+        }
+        if (!(request.eventType().getId() == null) && !(request.eventType().getName().isBlank())) {
+            event.setEventType(request.eventType());
+        }
+        if (!(request.startDateTime() == null)) {
+            event.setStartDateTime(request.startDateTime());
+        }
+        if (!(request.endDateTime() == null) && !(request.endDateTime().isBefore(event.getStartDateTime()))) {
+            event.setEndDateTime(request.endDateTime());
+        }
+    }
 }
