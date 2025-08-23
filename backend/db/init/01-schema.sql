@@ -7,6 +7,18 @@ CREATE TABLE IF NOT EXISTS organization (
     name VARCHAR (30) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS events (
+    id UUID PRIMARY KEY NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    start_date_time TIMESTAMP WITH TIME ZONE NOT NULL,
+    end_date_time TIMESTAMP WITH TIME ZONE
+);
+
+CREATE TABLE IF NOT EXISTS pages (
+    id UUID PRIMARY KEY NOT NULL,
+    name VARCHAR(50) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS organizations_events (
     organization_id UUID NOT NULL,
     event_id UUID NOT NULL,
@@ -17,13 +29,6 @@ CREATE TABLE IF NOT EXISTS organizations_events (
     CONSTRAINT fk_event
         FOREIGN KEY (event_id) REFERENCES events (id)
         ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS events (
-    id UUID PRIMARY KEY NOT NULL,
-    name VARCHAR(100) NOT NULL,
-    start_date_time TIMESTAMP WITH TIME ZONE NOT NULL,
-    end_date_time TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE IF NOT EXISTS organizations_pages (
@@ -37,11 +42,3 @@ CREATE TABLE IF NOT EXISTS organizations_pages (
         FOREIGN KEY (event_id) REFERENCES events (id)
         ON DELETE CASCADE
 );
-
-CREATE TABLE IF NOT EXISTS pages (
-    id UUID PRIMARY KEY NOT NULL,
-    name VARCHAR(50) NOT NULL
-);
-
-
-
