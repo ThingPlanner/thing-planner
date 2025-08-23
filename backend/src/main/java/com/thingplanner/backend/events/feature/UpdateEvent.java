@@ -1,5 +1,6 @@
 package com.thingplanner.backend.events.feature;
 
+import com.sun.jdi.InvalidTypeException;
 import com.thingplanner.backend.events.model.Event;
 import com.thingplanner.backend.events.model.EventRepository;
 import com.thingplanner.backend.events.model.EventType;
@@ -7,9 +8,7 @@ import com.thingplanner.backend.shared.api.dto.response.MessageResponse;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.ZonedDateTime;
 import java.util.UUID;
@@ -27,12 +26,12 @@ class UpdateEventApi {
         this.updateEventService = updateEventService;
     }
 
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<?> updateEvent(@RequestBody UpdateEventRequest request) {
         try {
             updateEventService.updateEvent(request);
             return ResponseEntity.status(OK)
-                    .body(new MessageResponse("Success", "Event updated."))
+                    .body(new MessageResponse("Success", "Event updated."));
         } catch (Exception e) {
             return ResponseEntity.status(INTERNAL_SERVER_ERROR)
                     .body(new MessageResponse("Failure", "Could not update event."));
