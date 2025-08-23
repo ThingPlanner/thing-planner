@@ -24,7 +24,7 @@ class DeleteEventApi {
         this.eventRepository = eventRepository;
     }
 
-    @RequestMapping("/delete{id}")
+    @PostMapping("/delete{id}")
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         if (eventRepository.existsById(id)) {
             deleteEventService.delete(id);
