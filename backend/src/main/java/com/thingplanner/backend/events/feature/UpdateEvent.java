@@ -60,8 +60,16 @@ class UpdateEventService {
         this.eventRepository = eventRepository;
     }
 
-    public void updateEvent(UpdateEventRequest request) {
-        //TODO: get entity, pass update spec / filter object, save and persist updated entity.
+    public void updateEvent(UpdateEventRequest request) throws InvalidTypeException {
+        var event = eventRepository.findById(request.id())
+                .orElseThrow(() -> new RuntimeException("Event not found."));
+
+        try {
+            mapFieldsToUpdate(request, event);
+        } catch (InvalidTypeException e) {
+            throw new InvalidTypeException("Unable to update event.");
+        }
+        eventRepository.save(event);
     }
 
     private void mapFieldsToUpdate(UpdateEventRequest request, Event event) throws InvalidTypeException {
