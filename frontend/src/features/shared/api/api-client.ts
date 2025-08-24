@@ -39,4 +39,28 @@ class ApiClient {
         return await response.json();
     }
 
+    /**
+     * Async method to handle POST requests.
+     * @param endpoint API endpoint.
+     * @param payload Data payload object.
+     * @returns A Promise that resolved with the parse JSON response.
+     */
+    public async post<T, R = unknown>(endpoint: string, payload: T): Promise<R> {
+        const url = `${this.baseUrl}/${endpoint}`;
+        const options: RequestInit = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        };
+
+        const response = await fetch (url, options);
+        await this._handleFailedRequest(response);
+
+        if (response.status === 204) {
+            return undefined as R;
+        }
+
+        return await response.json();
+    }
+
 }
