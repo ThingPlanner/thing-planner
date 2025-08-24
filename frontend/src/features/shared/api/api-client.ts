@@ -63,4 +63,15 @@ class ApiClient {
         return await response.json();
     }
 
+    /**
+     * Async method to handle DELETE requests.
+     * @param endpoint API endpoint.
+     */
+    public async delete(endpoint: string): Promise<void> {
+        const url = `${this.baseUrl}/${endpoint}`;
+        const options: RequestInit = { method: "DELETE" };
+
+        const response = await fetch(url, options);
+        await this._handleFailedRequest(response);
+    }
 }
