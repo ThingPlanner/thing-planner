@@ -23,4 +23,20 @@ class ApiClient {
             throw new Error(`Request failed with status ${response.status}`);
         }
     }
+
+    /**
+     * Async method to handle GET requests.
+     * @param endpoint API Endpoint.
+     * @returns A Promise that resolved with the parsed JSON.
+     */
+    public async get<R = unknown>(endpoint: string): Promise<R> {
+        const url = `${this.baseUrl}/${endpoint}`;
+        const options: RequestInit = { method: "GET" };
+
+        const response = await fetch(url, options);
+        await this._handleFailedRequest(response);
+
+        return await response.json();
+    }
+
 }
