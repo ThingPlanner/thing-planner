@@ -2,7 +2,7 @@
  * Reusable API client class for making HTTP requests.
  * ApiClient centralizes request, logic and error handling.
  */
-class ApiClient {
+export class ApiClient {
     private readonly baseUrl: string;
 
     /**
