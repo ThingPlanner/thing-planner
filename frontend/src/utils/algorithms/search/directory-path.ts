@@ -20,4 +20,12 @@ class DirectoryPath {
         }
     }
 
+    public traverseDown(targetNodeName: string) {
+        this.cur.children?.forEach((child) => {
+            if (child.name === targetNodeName) {
+                this.dirPath.push(child);
+            }
+        });
+    }
+
 
