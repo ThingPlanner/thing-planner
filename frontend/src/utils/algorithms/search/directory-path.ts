@@ -28,4 +28,15 @@ class DirectoryPath {
         });
     }
 
+    public traverseUp(targetNodeName: string) {
+        if (this.dirPath.length === 0 || this.cur.name === targetNodeName) {
+            return;
+        }
+
+        this.dirPath.pop();
+        this.cur = this.dirPath[this.dirPath.length - 1];
+
+        this.traverseUp(targetNodeName);
+    }
+}
 
