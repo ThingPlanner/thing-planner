@@ -33,14 +33,15 @@ export class DirectoryPath {
             this.cur = child;
             this.dirs.push({ node: child });
         }
+        return this.dirs;
     }
 
-    public traverseDown(targetNodeName: string) {
-        this.cur.children?.forEach((child) => {
-            if (child.name === targetNodeName) {
-                this.dirPath.push(child);
-            }
-        });
+    public traverseUp(targetId: string): DirStack[] {
+        if (this.cur.parent && this.cur.parent.id === targetId) {
+            this.cur = this.cur.parent;
+            this.dirs.pop();
+        }
+        return this.dirs;
     }
 
     public traverseUp(targetNodeName: string) {
