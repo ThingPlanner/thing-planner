@@ -14,7 +14,7 @@ type DirStack = {
 
 export class DirectoryPath {
     rootNode: DirNode;
-    dirPath: DirNode[];
+    trail: DirNode[];
     cur: DirNode;
 
     constructor(rootNode: DirNode) {
