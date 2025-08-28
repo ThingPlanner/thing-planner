@@ -7,6 +7,12 @@ type DirNode = {
 };
 
 class DirectoryPath {
+type DirNodeJson = Omit<DirNode, "parent"> & { children?: DirNodeJson[] };
+
+type DirStack = {
+    node: DirNode
+}
+
     rootNode: DirNode;
     dirPath: DirNode[];
     cur: DirNode;
