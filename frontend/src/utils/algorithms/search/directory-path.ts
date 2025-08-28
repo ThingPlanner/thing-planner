@@ -16,10 +16,14 @@ export class DirectoryPath {
     rootNode: DirNode;
     trail: DirNode[];
     cur: DirNode;
+    dirs: DirStack[];
 
-    constructor(rootNode: DirNode) {
-        this.rootNode = rootNode;
-        this.dirPath = [rootNode];
+    constructor(pathData: any[]) {
+        this.rootNode = this.buildTree(pathData, null);
+        this.cur = this.rootNode;
+        this.trail = [this.rootNode];
+        this.dirs = [{ node: this.cur }];
+    }
 
         if (this.dirPath.length > 1) {
             this.cur = this.dirPath[this.dirPath.length - 1]
