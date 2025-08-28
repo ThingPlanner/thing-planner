@@ -1,6 +1,7 @@
 type DirNode = {
     name: string,
     children?: DirNode[],
+    id: string,
     isBottom: boolean
 };
 
