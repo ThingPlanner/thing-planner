@@ -47,6 +47,21 @@ export class DirectoryPath {
     public traverseUp(targetNodeName: string) {
         if (this.dirPath.length === 0 || this.cur.name === targetNodeName) {
             return;
+
+    private buildTree(raw: DirNodeJson, parent: DirNode | null = null): DirNode {
+        const node: DirNode = {
+            id: raw.id,
+            route: raw.route,
+            isBottom: raw.isBottom,
+            parent,
+            children: [],
+        };
+
+        node.children = (raw.children ?? []).map(child => this.buildTree(child, node));
+
+        return node;
+    }
+
         }
 
         this.dirPath.pop();
