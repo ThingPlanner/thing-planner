@@ -44,9 +44,6 @@ export class DirectoryPath {
         return this.dirs;
     }
 
-    public traverseUp(targetNodeName: string) {
-        if (this.dirPath.length === 0 || this.cur.name === targetNodeName) {
-            return;
 
     private buildTree(raw: DirNodeJson, parent: DirNode | null = null): DirNode {
         const node: DirNode = {
@@ -62,12 +59,15 @@ export class DirectoryPath {
         return node;
     }
 
+    public getBreadcrumbPath(): DirStack[] {
+        const path: DirStack[] = [];
+        let node: DirNode | null = this.cur;
+
+        while (node) {
+            path.unshift({ node });
+            node = node.parent;
         }
 
-        this.dirPath.pop();
-        this.cur = this.dirPath[this.dirPath.length - 1];
-
-        this.traverseUp(targetNodeName);
+        return path;
     }
 }
-
