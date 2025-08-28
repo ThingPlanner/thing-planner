@@ -6,13 +6,13 @@ type DirNode = {
     isBottom: boolean
 };
 
-class DirectoryPath {
 type DirNodeJson = Omit<DirNode, "parent"> & { children?: DirNodeJson[] };
 
 type DirStack = {
     node: DirNode
 }
 
+export class DirectoryPath {
     rootNode: DirNode;
     dirPath: DirNode[];
     cur: DirNode;
