@@ -1,7 +1,8 @@
 type DirNode = {
-    name: string,
-    children?: DirNode[],
     id: string,
+    route: string,
+    parent: DirNode | null,
+    children: DirNode[],
     isBottom: boolean
 };
 
