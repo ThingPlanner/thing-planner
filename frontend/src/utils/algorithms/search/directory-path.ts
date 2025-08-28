@@ -25,10 +25,13 @@ export class DirectoryPath {
         this.dirs = [{ node: this.cur }];
     }
 
-        if (this.dirPath.length > 1) {
-            this.cur = this.dirPath[this.dirPath.length - 1]
-        } else {
-            this.cur = rootNode;
+    public traverseDown(targetId: string): DirStack[] {
+        if (!this.cur) return this.dirs;
+
+        const child = this.cur.children.find(cld => cld.id === targetId);
+        if (child) {
+            this.cur = child;
+            this.dirs.push({ node: child });
         }
     }
 
