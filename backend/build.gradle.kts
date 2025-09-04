@@ -16,11 +16,11 @@ dependencies {
     implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
     implementation("io.quarkus:quarkus-arc")
     implementation("io.quarkus:quarkus-rest")
-    // https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api
-    implementation("jakarta.validation:jakarta.validation-api:3.1.1")
+    implementation("jakarta.validation:jakarta.validation-api:3.1.1") // https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api
+    implementation("jakarta.persistence:jakarta.persistence-api:3.2.0") // https://mvnrepository.com/artifact/jakarta.persistence/jakarta.persistence-api
+
     testImplementation("io.quarkus:quarkus-junit5")
-    testImplementation("io.rest-assured:rest-assured")
-    // https://mvnrepository.com/artifact/io.quarkus/quarkus-junit5-mockito
+    testImplementation("io.rest-assured:rest-assured") // https://mvnrepository.com/artifact/io.quarkus/quarkus-junit5-mockito
     testImplementation("io.quarkus:quarkus-junit5-mockito")
 
 }
