@@ -83,11 +83,6 @@ record GetEventResponse (
 
 @ApplicationScoped
 class GetEventService {
-    private final EventRepository eventRepository;
-
-    public GetEventService(EventRepository eventRepository) {
-        this.eventRepository = eventRepository;
-    }
 
     public List<GetEventResponse> get(GetEventRequest request) {
         var spec = getEventSpec(
@@ -99,26 +94,26 @@ class GetEventService {
                 request.endDateTime()
         );
 
-        return eventRepository.findAll()
+        return Event.findAll()
                 .stream()
                 .map(event -> new GetEventResponse(
-                        event.getId(),
-                        event.getName(),
-                        event.getEventType(),
-                        event.getStartDateTime(),
-                        event.getEndDateTime()
+                        event.id,
+                        event.name,
+                        event.eventType,
+                        event.startDateTime,
+                        event.endDateTime
                 ))
                 .collect(Collectors.toList());
     }
 
     public Optional<GetEventResponse> getById(UUID id) {
-        return eventRepository.findById(id)
+        return Event.findById(id)
                 .map(event -> new GetEventResponse(
-                        event.getId(),
-                        event.getName(),
-                        event.getEventType(),
-                        event.getStartDateTime(),
-                        event.getEndDateTime()
+                        event.id,
+                        event.name,
+                        event.eventType,
+                        event.startDateTime,
+                        event.endDateTime
                 ));
     }
 }
