@@ -81,7 +81,7 @@ record GetEventResponse (
 ) {};
 
 
-@Service
+@ApplicationScoped
 class GetEventService {
     private final EventRepository eventRepository;
 
