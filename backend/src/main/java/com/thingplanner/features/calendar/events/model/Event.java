@@ -12,8 +12,7 @@ import java.util.UUID;
 @Table(name = "events")
 public class Event extends PanacheEntityBase {
 
-    @Id
-    public UUID id;
+    @Id @GeneratedValue public UUID id;
 
     @Column(name = "name")
     public String name;
