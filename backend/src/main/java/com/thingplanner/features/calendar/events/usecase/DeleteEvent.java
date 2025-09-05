@@ -42,18 +42,15 @@ class DeleteEventApi {
 
 record BulkDeleteRequest(List<UUID> idsToDelete) {};
 
-
 @ApplicationScoped
 class DeleteEventService {
 
-    private final EventRepository eventRepository;
-
-    DeleteEventService(EventRepository eventRepository) {
-        this.eventRepository = eventRepository;
+    public boolean checkEventExists(UUID id) {
+        return Event.count("id", id) > 0;
     }
 
     @Transactional
     public void delete(UUID id) {
-        eventRepository.deleteById(id);
+        Event.deleteById(id);
     }
 }
