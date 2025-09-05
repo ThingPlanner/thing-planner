@@ -1,40 +1,40 @@
 package com.thingplanner.features.calendar.events.usecase;
 
 import com.sun.jdi.InvalidTypeException;
-import com.thingplanner.backend.events.model.Event;
-import com.thingplanner.backend.events.model.EventRepository;
-import com.thingplanner.backend.events.model.EventType;
-import com.thingplanner.backend.shared.api.dto.response.MessageResponse;
+
+import com.thingplanner.features.calendar.events.model.Event;
+import com.thingplanner.features.calendar.events.model.EventType;
+import com.thingplanner.shared.Response.MessageResponse;
+import jakarta.annotation.Resource;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.core.Response;
 
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.OK;
-
-@RestController
-@RequestMapping("/events")
+@Resource
+@Path("/events")
 class UpdateEventApi {
 
-    private final UpdateEventService updateEventService;
+    @Inject
+    UpdateEventService updateEventService;
 
-    public UpdateEventApi(UpdateEventService updateEventService) {
-        this.updateEventService = updateEventService;
-    }
-
-    @PostMapping("/update")
-    public ResponseEntity<?> updateEvent(@RequestBody UpdateEventRequest request) {
+    @POST
+    @Path("/update")
+    public Response updateEvent(UpdateEventRequest request) {
         try {
             updateEventService.updateEvent(request);
-            return ResponseEntity.status(OK)
-                    .body(new MessageResponse("Success", "Event updated."));
+            return Response.status(200)
+                    .entity(new MessageResponse("Success", "Event updated."))
+                    .build();
         } catch (Exception e) {
-            return ResponseEntity.status(INTERNAL_SERVER_ERROR)
-                    .body(new MessageResponse("Failure", "Could not update event."));
+            return Response.status(500)
+                    .entity(new MessageResponse("Failure", "Could not update event."))
+                    .build();
         }
     }
 }
@@ -52,16 +52,11 @@ record UpdateEventResponse (
 
 ) {}
 
-@Service
+@ApplicationScoped
 class UpdateEventService {
-    private final EventRepository eventRepository;
-
-    public UpdateEventService(EventRepository eventRepository) {
-        this.eventRepository = eventRepository;
-    }
 
     public void updateEvent(UpdateEventRequest request) throws InvalidTypeException {
-        var event = eventRepository.findById(request.id())
+        var event = Event.findById(request.id())
                 .orElseThrow(() -> new RuntimeException("Event not found."));
 
         try {
@@ -69,21 +64,21 @@ class UpdateEventService {
         } catch (InvalidTypeException e) {
             throw new InvalidTypeException("Unable to update event.");
         }
-        eventRepository.save(event);
+        Event.persist(event);
     }
 
     private void mapFieldsToUpdate(UpdateEventRequest request, Event event) throws InvalidTypeException {
         if (!request.name().isBlank() || !request.name().isEmpty()) {
-            event.setName(request.name());
+            event.name(request.name());
         }
-        if (!(request.eventType().getId() == null) && !(request.eventType().getName().isBlank())) {
-            event.setEventType(request.eventType());
+        if (!(request.eventType().getId() == null) && !(request.eventType().name.isBlank())) {
+            event.eventType(request.eventType());
         }
         if (!(request.startDateTime() == null)) {
-            event.setStartDateTime(request.startDateTime());
+            event.startDateTime(request.startDateTime());
         }
-        if (!(request.endDateTime() == null) && !(request.endDateTime().isBefore(event.getStartDateTime()))) {
-            event.setEndDateTime(request.endDateTime());
+        if (!(request.endDateTime() == null) && !(request.endDateTime().isBefore(event.endDateTime))) {
+            event.endDateTime(request.endDateTime());
         }
     }
 }
