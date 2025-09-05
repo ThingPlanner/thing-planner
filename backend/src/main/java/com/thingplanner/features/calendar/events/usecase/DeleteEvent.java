@@ -1,12 +1,15 @@
 package com.thingplanner.features.calendar.events.usecase;
 
-import com.thingplanner.backend.events.model.EventRepository;
-import com.thingplanner.backend.shared.api.dto.response.MessageResponse;
+import com.thingplanner.shared.Response.MessageResponse;
+import com.thingplanner.features.calendar.events.model.Event;
 import jakarta.annotation.Resource;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,23 +17,22 @@ import java.util.UUID;
 @Resource
 @Path("/events")
 class DeleteEventApi {
-    private final DeleteEventService deleteEventService;
-    private final EventRepository eventRepository;
 
-    public DeleteEventApi(DeleteEventService deleteEventService, EventRepository eventRepository) {
-        this.deleteEventService = deleteEventService;
-        this.eventRepository = eventRepository;
-    }
+    @Inject
+    DeleteEventService deleteEventService;
 
+    @DELETE
     @Path("/delete{id}")
-    public ResponseEntity<?> delete(@PathParam UUID id) {
-        if (eventRepository.existsById(id)) {
+    public Response delete(@PathParam("id") UUID id) {
+        if (deleteEventService.checkEventExists(id)) {
             deleteEventService.delete(id);
-            return ResponseEntity.status(OK)
-                    .body(new MessageResponse("Success", "Event deleted."));
+            return Response.status(200)
+                    .entity(new MessageResponse("Success", "Event deleted."))
+                    .build();
         }
-        return ResponseEntity.status(NOT_FOUND)
-                .body(new MessageResponse("Failure", "Could not delete event, does not exist."));
+        return Response.status(404)
+                .entity(new MessageResponse("Failure", "Could not delete event, does not exist."))
+                .build();
     }
 
     //@RequestMapping("/delete-bulk")
