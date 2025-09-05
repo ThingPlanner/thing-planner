@@ -1,6 +1,5 @@
 package com.thingplanner.features.calendar.events.model;
 
-import com.sun.jdi.InvalidTypeException;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 
@@ -26,8 +25,5 @@ public class Event extends PanacheEntityBase {
 
     @Column(name = "end_date_time")
     public ZonedDateTime endDateTime;
-
-    public Event() {}
-
 
 }
