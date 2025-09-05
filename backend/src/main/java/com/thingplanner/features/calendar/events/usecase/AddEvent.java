@@ -64,33 +64,25 @@ record AddEventResponse (
 
 @ApplicationScoped
 class AddService {
-    private final EventRepository eventRepository;
-
-    public AddService(EventRepository eventRepository) {
-        this.eventRepository = eventRepository;
-    }
 
     private Optional<Event> buildEvent(AddEventRequest request) {
-        UUID id = UUID.randomUUID();
-        var eventType = new EventType.Builder()
-                .id(request.eventType().getId())
-                .name(request.eventType().getName())
-                .build();
+        var id = UUID.randomUUID();
 
-        return Optional.ofNullable(new Event.Builder()
-                .id(UUID.randomUUID())
-                .name(request.name())
-                .eventType(eventType)
-                .startDateTime(request.startDateTime())
-                .endDateTime(request.endDateTime())
-                .build());
+        var event = new Event();
+        event.id = id;
+        event.name = request.name();
+        event.eventType = request.eventType();
+        event.startDateTime = request.startDateTime();
+        event.endDateTime = request.endDateTime();
+
+        return Optional.of(event);
     }
 
     public AddEventResponse add(AddEventRequest request) {
         var event = buildEvent(request)
                 .orElseThrow(() -> new MalformedRequestException("Could not build event from request."));
         try {
-            eventRepository.save(event);
+            event.persistAndFlush();
             return new AddEventResponse("Success", "Event created successfully.");
         } catch (Exception e) {
             throw new RuntimeException("Could not save event.", e);
