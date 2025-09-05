@@ -1,15 +1,18 @@
 package com.thingplanner.features.calendar.events.usecase;
 
-import com.thingplanner.backend.events.model.EventRepository;
-import com.thingplanner.backend.events.model.EventType;
-import com.thingplanner.backend.shared.api.dto.response.MessageResponse;
+import com.thingplanner.features.calendar.events.model.Event;
+import com.thingplanner.features.calendar.events.model.EventType;
+import com.thingplanner.shared.Response.MessageResponse;
+import jakarta.annotation.Resource;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.core.Response;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -17,38 +20,42 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static com.thingplanner.backend.events.model.EventSpecification.getEventSpec;
+import static com.thingplanner.features.calendar.events.model.EventSpecification.*;
 
-@RestController
-@RequestMapping("/events")
+@Resource
+@Path("/events")
 class GetEventApi {
-    private final GetEventService getEventService;
+    @Inject
+    GetEventService getEventService;
 
-
-    public GetEventApi(GetEventService getEventService) {
-        this.getEventService = getEventService;
-    }
-
-    @GetMapping("/get")
-    public ResponseEntity<?> getEvent(@Valid @RequestBody GetEventRequest request) {
+    @GET
+    @Path("/get")
+    public Response getEvent(@Valid GetEventRequest request) {
         try {
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(getEventService.get(request));
+            GetEventResponse response = getEventService.get(request);
+            return Response.status(200)
+                    .entity(response)
+                    .build();
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new MessageResponse("Failure", "Could not get events by specified criteria."));
+            return Response.status(500)
+                    .entity(new MessageResponse("Failure", "Could not get events by specified criteria."))
+                    .build();
         }
     }
 
-    @GetMapping("/get{id}")
-    public ResponseEntity<?> getEventById(@PathVariable UUID id) {
+    @GET
+    @Path("/get{id}")
+    public Response getEventById(@PathParam("id") UUID id) {
         try {
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(getEventService.getById(id));
+            GetEventResponse response = getEventService.getById(id);
+            return Response.status(200)
+                    .entity(response)
+                    .build();
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new MessageResponse(
-                            "Failure", String.format("Could not get event with ID: %s", id)));
+            return Response.status(500)
+                    .entity(new MessageResponse(
+                            "Failure", String.format("Could not get event with ID: %s", id)))
+                    .build();
         }
     }
 }
