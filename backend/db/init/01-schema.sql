@@ -15,6 +15,10 @@ CREATE TABLE IF NOT EXISTS event_types (
 CREATE TABLE IF NOT EXISTS events (
     id UUID PRIMARY KEY NOT NULL,
     name VARCHAR(100) NOT NULL,
+    event_type_id BIGINT,
+    CONSTRAINT fk_event_type
+        FOREIGN KEY (event_type_id) REFERENCES event_types (id)
+        ON DELETE CASCADE,
     start_date_time TIMESTAMP WITH TIME ZONE NOT NULL,
     end_date_time TIMESTAMP WITH TIME ZONE
 );
