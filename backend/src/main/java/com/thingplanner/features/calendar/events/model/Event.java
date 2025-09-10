@@ -26,4 +26,8 @@ public class Event extends PanacheEntityBase {
     @Column(name = "end_date_time")
     public ZonedDateTime endDateTime;
 
+    public static Optional<Event> findEventByIdOptional(UUID id) {
+        return findByIdOptional(id);
+    }
+
 }
