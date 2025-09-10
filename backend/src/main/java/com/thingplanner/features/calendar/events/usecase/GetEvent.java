@@ -106,14 +106,15 @@ class GetEventService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<GetEventResponse> getById(UUID id) {
-        return Event.findById(id)
+    public GetEventResponse getById(UUID id) {
+        return Event.findEventByIdOptional(id)
                 .map(event -> new GetEventResponse(
                         event.id,
                         event.name,
                         event.eventType,
                         event.startDateTime,
                         event.endDateTime
-                ));
+                ))
+                .orElseThrow(() -> new NotFoundException("Event not found with ID: " + id));
     }
 }
