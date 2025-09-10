@@ -4,6 +4,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 
 import java.time.ZonedDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -17,7 +18,7 @@ public class Event extends PanacheEntityBase {
     public String name;
 
     @ManyToOne
-    @JoinColumn(name = "event_type", referencedColumnName = "id")
+    @JoinColumn(name = "event_type_id")
     public EventType eventType;
 
     @Column(name = "start_date_time")
