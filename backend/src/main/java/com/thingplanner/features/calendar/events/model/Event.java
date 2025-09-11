@@ -4,6 +4,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,6 +30,10 @@ public class Event extends PanacheEntityBase {
 
     public static Optional<Event> findEventByIdOptional(UUID id) {
         return findByIdOptional(id);
+    }
+
+    public List<Event> findAllEvents(String query, String params) {
+        return find(query, params);
     }
 
 }
