@@ -10,15 +10,13 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.Response;
 
 import java.time.ZonedDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.*;
 
 import static com.thingplanner.features.calendar.events.model.EventSpecification.*;
 
@@ -32,7 +30,7 @@ class GetEventApi {
     @Path("/get")
     public Response getEvent(@Valid GetEventRequest request) {
         try {
-            GetEventResponse response = getEventService.get(request);
+            List<GetEventResponse> response = getEventService.get(request);
             return Response.status(200)
                     .entity(response)
                     .build();
