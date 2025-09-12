@@ -115,4 +115,9 @@ class GetEventService {
                 ))
                 .orElseThrow(() -> new NotFoundException("Event not found with ID: " + id));
     }
+
+    private Parameters addParameter(Parameters params, String name, Object value) {
+        return params == null ? Parameters.with(name, value) : params.and(name, value);
+    }
 }
+
