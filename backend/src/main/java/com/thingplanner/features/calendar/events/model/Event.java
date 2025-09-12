@@ -1,12 +1,11 @@
 package com.thingplanner.features.calendar.events.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import io.quarkus.panache.common.Parameters;
 import jakarta.persistence.*;
 
 import java.time.ZonedDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 
 @Entity
@@ -32,8 +31,8 @@ public class Event extends PanacheEntityBase {
         return findByIdOptional(id);
     }
 
-    public List<Event> findAllEvents(String query, String params) {
-        return find(query, params);
+    public List<Event> findAllEvents(String query, Parameters params) {
+        return list(query, params);
     }
 
 }
