@@ -3,6 +3,7 @@ package com.thingplanner.features.calendar.events.usecase;
 import com.thingplanner.features.calendar.events.model.Event;
 import com.thingplanner.features.calendar.events.model.EventType;
 import com.thingplanner.shared.Response.MessageResponse;
+import io.quarkus.panache.common.Parameters;
 import jakarta.annotation.Resource;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -81,27 +82,46 @@ record GetEventResponse (
 
 @ApplicationScoped
 class GetEventService {
-
     public List<GetEventResponse> get(GetEventRequest request) {
-        var spec = getEventSpec(
-                request.id(),
-                request.name(),
-                request.eventType().getId(),
-                request.eventType().getName(),
-                request.startDateTime(),
-                request.endDateTime()
-        );
+        Event event = new Event();
+        StringBuilder query = new StringBuilder("FROM Event e WHERE 1=1");
+        Parameters params = null;
 
-        return Event.findAll()
-                .stream()
-                .map(event -> new GetEventResponse(
-                        event.id,
-                        event.name,
-                        event.eventType,
-                        event.startDateTime,
-                        event.endDateTime
-                ))
-                .collect(Collectors.toList());
+        if (request.id() != null) {
+            query.append(" AND e.id = :id");
+            params = addParameter(params, "id", request.id());
+        }
+
+        if (request.name() != null) {
+            query.append("AND e.name = :name");
+            params = addParameter(params, "name", request.name());
+        }
+
+        if (request.eventType() != null) {
+            query.append("AND e.eventType = :eventType");
+            params = addParameter(params, "eventType", request.eventType());
+        }
+
+        if (request.startDateTime() != null) {
+            query.append("AND e.startDateTime = :startDateTime");
+            params = addParameter(params, "startDateTime", request.startDateTime());
+        }
+
+        if (request.endDateTime() != null) {
+            query.append("AND e.endDateTime = :endDateTime");
+            params = addParameter(params, "endDateTime", request.endDateTime());
+        }
+
+        List<Event> events = event.findAllEvents(query.toString(), params);
+
+        return events.stream()
+                .map(e -> new GetEventResponse(
+                        e.id,
+                        e.name,
+                        e.eventType,
+                        e.startDateTime,
+                        e.endDateTime))
+                .toList();
     }
 
     public GetEventResponse getById(UUID id) {
