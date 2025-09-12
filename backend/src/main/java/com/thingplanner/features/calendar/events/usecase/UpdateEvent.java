@@ -59,6 +59,7 @@ record UpdateEventResponse (
 @ApplicationScoped
 class UpdateEventService {
 
+    @Transactional
     public void updateEvent(UpdateEventRequest request) throws InvalidTypeException {
         boolean exists = findByIdOptional(request.id())
                 .isPresent();
