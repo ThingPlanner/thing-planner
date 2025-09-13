@@ -4,6 +4,7 @@ package com.thingplanner.features.pages.usecase;
 import com.thingplanner.features.pages.model.Page;
 import jakarta.annotation.Resource;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.Response;
@@ -16,9 +17,18 @@ import java.util.List;
 @Path("/pages/breadcrumb")
 class GetBreadcrumbAPI {
 
-    @Path("/get")
-    public List<GetBreadcrumbResponse> getBreadcrumbResponse(GetBreadcrumbRequest request) {
+    @Inject GetBreadcrumbService getBreadcrumbService;
 
+    @Path("/get{pageId}")
+    public Response getBreadcrumbResponse(@PathParam("pageId") Long pageId ) {
+        try {
+            List<GetBreadcrumbResponse> responses = getBreadcrumbService.getBreadcrumb(pageId);
+            return Response.status(200).entity(responses).build();
+        } catch (Exception e) {
+            return Response.status(404)
+                    .entity("Couldn't get breadcrumb for page: " + pageId)
+                    .build();
+        }
     }
 }
 
