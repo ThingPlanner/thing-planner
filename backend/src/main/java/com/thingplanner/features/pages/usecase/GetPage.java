@@ -57,4 +57,18 @@ record GetPageResponse (
 @ApplicationScoped
 class GetPageService {
 
+    public List<GetPageResponse> getPages(GetPageRequest request) {
+        List<Page> pages = Page.find(
+                "organizationId = ?1 AND thingId = ?2",
+                request.organizationId(), request.thingId()).list();
+
+        return pages.stream()
+                .map(p -> new GetPageResponse(
+                        p.id,
+                        p.title,
+                        p.thingId,
+                        p.parentId,
+                        p.url
+                )).toList();
+    }
 }
