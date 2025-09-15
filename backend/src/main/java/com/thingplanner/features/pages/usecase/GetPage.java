@@ -39,7 +39,7 @@ class GetPageApi {
             return Response.status(200)
                     .entity(responses)
                     .build();
-        } catch (Exception e){
+        } catch (Exception e) {
             return Response.status(404)
                     .entity("Could not find pages.")
                     .build();
