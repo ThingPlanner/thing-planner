@@ -23,4 +23,13 @@ class GetPageApi {
 }
 
 
+record GetPageRequest (
+        @NotNull
+        UUID organizationId,
+        @NotNull
+        UUID thingId,
+        UUID pageId
+) {}
+
+
 
