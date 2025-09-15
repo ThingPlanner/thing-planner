@@ -45,6 +45,15 @@ record GetPageRequest (
         UUID pageId
 ) {}
 
+record GetPageResponse (
+        UUID id,
+        String title,
+        UUID thingId,
+        UUID parentId,
+        String url
+) {}
+
+
 @ApplicationScoped
 class GetPageService {
 
