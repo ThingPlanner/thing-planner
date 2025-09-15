@@ -31,5 +31,7 @@ record GetPageRequest (
         UUID pageId
 ) {}
 
+@ApplicationScoped
+class GetPageService {
 
-
+}
