@@ -19,7 +19,18 @@ class GetPageApi {
     @Inject GetPageService getPageService;
 
     @Path("/get{pageId}")
-    public Response getPageById(@PathParam("pageId", UUID pageId)) {}
+    public Response getPageById(@PathParam("pageId") UUID pageId) {
+        try {
+            GetPageResponse response = getPageService.getPageById(pageId);
+            return Response.status(200)
+                    .entity(response)
+                    .build();
+        } catch (Exception e) {
+            return Response.status(404)
+                    .entity("Could not find page with ID: " + pageId)
+                    .build();
+        }
+    }
 
     @Path("/get")
     public Response getPages(GetPageRequest request) {
