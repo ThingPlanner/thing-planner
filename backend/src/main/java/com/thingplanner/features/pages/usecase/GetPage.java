@@ -68,6 +68,18 @@ record GetPageResponse (
 @ApplicationScoped
 class GetPageService {
 
+    public GetPageResponse getPageById(UUID pageId) {
+        Page page = Page.findById(pageId);
+
+        return new GetPageResponse(
+                page.id,
+                page.title,
+                page.thingId,
+                page.parentId,
+                page.url
+        );
+    }
+
     public List<GetPageResponse> getPages(GetPageRequest request) {
         List<Page> pages = Page.find(
                 "organizationId = ?1 AND thingId = ?2",
