@@ -41,9 +41,9 @@ record GetBreadcrumbRequest(
 
 record GetBreadcrumbResponse(
         Long id,
-        UUID organizationId,
-        UUID thingId,
         String title,
+        UUID thingId,
+        Long parentId,
         String url
 ) {}
 
