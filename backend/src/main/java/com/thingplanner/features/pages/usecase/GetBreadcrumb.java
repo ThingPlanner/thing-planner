@@ -20,7 +20,7 @@ class GetBreadcrumbAPI {
     @Inject GetBreadcrumbService getBreadcrumbService;
 
     @Path("/get{pageId}")
-    public Response getBreadcrumbResponse(@PathParam("pageId") Long pageId ) {
+    public Response getBreadcrumbResponse(@PathParam("pageId") UUID pageId ) {
         try {
             List<GetBreadcrumbResponse> responses = getBreadcrumbService.getBreadcrumb(pageId);
             return Response.status(200).entity(responses).build();
@@ -33,17 +33,11 @@ class GetBreadcrumbAPI {
 }
 
 
-record GetBreadcrumbRequest(
-        UUID organizationId,
-        UUID thingId
-) {}
-
-
 record GetBreadcrumbResponse(
-        Long id,
+        UUID id,
         String title,
-        UUID thingId,
-        Long parentId,
+        Thing thing,
+        Page parent,
         String url
 ) {}
 
@@ -51,22 +45,22 @@ record GetBreadcrumbResponse(
 @ApplicationScoped
 class GetBreadcrumbService {
 
-    public List<GetBreadcrumbResponse> getBreadcrumb(Long pageId) {
+    public List<GetBreadcrumbResponse> getBreadcrumb(UUID pageId) {
         List<GetBreadcrumbResponse> breadcrumb = new ArrayList<>();
 
-        Page current = Page.findById(pageId);
+        Page current = Page.findPage("id = ?1", Parameters.with("id", pageId));
 
         while (current != null) {
             breadcrumb.addFirst(new GetBreadcrumbResponse(
                     current.id,
                     current.title,
-                    current.thingId,
-                    current.parentId,
+                    current.thing,
+                    current.parent,
                     current.url
             ));
 
-            if (current.parentId != null) {
-                current = Page.findById(current.parentId);
+            if (current.parent.id != null) {
+                current = Page.findById(current.parent.id);
             } else {
                 current = null;
             }
