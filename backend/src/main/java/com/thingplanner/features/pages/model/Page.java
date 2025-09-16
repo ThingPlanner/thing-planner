@@ -1,9 +1,12 @@
 package com.thingplanner.features.pages.model;
 
 
+import com.thingplanner.features.things.model.Thing;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import io.quarkus.panache.common.Parameters;
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -11,23 +14,23 @@ import java.util.UUID;
 public class Page extends PanacheEntityBase {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    public UUID id;
 
     @Column(name = "title")
     public String title;
 
     @ManyToOne
-    @Column(name = "thing_id")
-    public UUID thingId;
+    @JoinColumn(name = "thing_id")
+    public Thing thing;
 
     @ManyToOne
-    @Column(name = "parent_id")
-    public Long parentId;
+    @JoinColumn(name = "parent_id")
+    public Page parent;
 
     @Column(name = "url")
     public String url;
 
-    public static Page findById(Long id) {
+    public static Page findById(UUID id) {
         return PanacheEntityBase.find("id", id).firstResult();
     }
 
