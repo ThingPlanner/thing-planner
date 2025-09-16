@@ -2,11 +2,13 @@ package com.thingplanner.features.pages.usecase;
 
 
 import com.thingplanner.features.pages.model.Page;
+import com.thingplanner.features.things.model.Thing;
+import io.quarkus.panache.common.Parameters;
 import jakarta.annotation.Resource;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.util.ArrayList;
@@ -19,6 +21,9 @@ class GetBreadcrumbAPI {
 
     @Inject GetBreadcrumbService getBreadcrumbService;
 
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/get{pageId}")
     public Response getBreadcrumbResponse(@PathParam("pageId") UUID pageId ) {
         try {
