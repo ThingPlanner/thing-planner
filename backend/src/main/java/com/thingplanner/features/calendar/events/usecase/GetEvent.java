@@ -36,7 +36,7 @@ class GetEventApi {
                     .entity(response)
                     .build();
         } catch (RuntimeException e) {
-            return Response.status(500)
+            return Response.status(404)
                     .entity(new MessageResponse("Failure", "Could not get events by specified criteria."))
                     .build();
         }
