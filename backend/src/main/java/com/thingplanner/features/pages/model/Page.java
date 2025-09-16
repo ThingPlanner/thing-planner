@@ -34,4 +34,8 @@ public class Page extends PanacheEntityBase {
         return PanacheEntityBase.find("id", id).firstResult();
     }
 
+    public static Page findPage(String query, Parameters params) {
+        return find(query, params).firstResult();
+    }
+
 }
