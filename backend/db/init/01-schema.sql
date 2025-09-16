@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS event_types (
 );
 
 CREATE TABLE IF NOT EXISTS events (
-    id UUID PRIMARY KEY NOT NULL,
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name VARCHAR(100) NOT NULL,
     event_type_id BIGINT,
     CONSTRAINT fk_event_type
