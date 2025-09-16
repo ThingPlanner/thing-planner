@@ -24,8 +24,19 @@ CREATE TABLE IF NOT EXISTS events (
 );
 
 CREATE TABLE IF NOT EXISTS pages (
-    id UUID PRIMARY KEY NOT NULL,
-    name VARCHAR(50) NOT NULL
+    id UUID DEFAULT uuid_generate_v4(),
+    title VARCHAR(50) NOT NULL,
+    thing_id UUID DEFAULT uuid_generate_v4(),
+    organization_id UUID DEFAULT uuid_generate_v4(),
+    PRIMARY KEY (id, thing_id, organization_id),
+    CONSTRAINT fk_thing
+        FOREIGN KEY (thing_id) REFERENCES things (id)
+        ON DELETE CASCADE,
+    CONSTRAINT fk_org
+        FOREIGN KEY (organization_id) REFERENCES organization (id)
+        ON DELETE CASCADE,
+    parent_id UUID,
+    url TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS organizations_events (
