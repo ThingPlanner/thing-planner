@@ -59,8 +59,8 @@ record GetPageRequest (
 record GetPageResponse (
         UUID id,
         String title,
-        UUID thingId,
-        UUID parentId,
+        Thing thing,
+        Page parent,
         String url
 ) {}
 
@@ -74,23 +74,23 @@ class GetPageService {
         return new GetPageResponse(
                 page.id,
                 page.title,
-                page.thingId,
-                page.parentId,
+                page.thing,
+                page.parent,
                 page.url
         );
     }
 
     public List<GetPageResponse> getPages(GetPageRequest request) {
         List<Page> pages = Page.find(
-                "organizationId = ?1 AND thingId = ?2",
+                "organization.id = ?1 AND thing.id = ?2",
                 request.organizationId(), request.thingId()).list();
 
         return pages.stream()
                 .map(p -> new GetPageResponse(
                         p.id,
                         p.title,
-                        p.thingId,
-                        p.parentId,
+                        p.thing,
+                        p.parent,
                         p.url
                 )).toList();
     }
