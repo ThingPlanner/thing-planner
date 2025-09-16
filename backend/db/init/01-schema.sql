@@ -4,6 +4,10 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE IF NOT EXISTS organization (
     id UUID PRIMARY KEY NOT NULL,
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name VARCHAR (30) NOT NULL
+);
+
     name VARCHAR (30) NOT NULL
 );
 
