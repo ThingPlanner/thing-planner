@@ -19,7 +19,6 @@ import jakarta.ws.rs.core.Response;
 import java.time.ZonedDateTime;
 import java.util.*;
 
-import static com.thingplanner.features.calendar.events.model.EventSpecification.*;
 
 @Resource
 @Path("/events")
