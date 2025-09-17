@@ -46,9 +46,15 @@ class UpdatePageApi {
 }
 
 
-record UpdatePageRequest () {
-
-}
+record UpdatePageRequest (
+        @NotNull
+        UUID id,
+        String title,
+        Organization organization,
+        Thing thing,
+        Page parent,
+        String url
+) {}
 
 
 @ApplicationScoped
