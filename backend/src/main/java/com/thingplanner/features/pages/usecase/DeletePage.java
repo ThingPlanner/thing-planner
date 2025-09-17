@@ -3,6 +3,7 @@ package com.thingplanner.features.pages.usecase;
 import com.thingplanner.features.pages.model.Page;
 import jakarta.annotation.Resource;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -14,12 +15,14 @@ import java.util.UUID;
 @Path("/pages")
 class DeletePageApi {
 
+    @Inject DeletePageService deletePageService;
+
     @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/delete{id}")
     public Response deletePage(@PathParam("id") UUID id) {
-        boolean pageDeleted = Page.deleteById(id);
+        boolean pageDeleted = deletePageService.deletePage(id);
 
         if (!pageDeleted) {
             return Response.status(404)
@@ -38,4 +41,8 @@ class DeletePageApi {
 @ApplicationScoped
 class DeletePageService {
 
+    @Transactional
+    public boolean deletePage(UUID pageId) {
+        return Page.deleteById(pageId);
+    }
 }
