@@ -49,7 +49,9 @@ record CreatePageRequest (
         Page parent
 ) {}
 
-record CreatePageResponse() {}
+record CreatePageResponse (
+
+) {}
 
 
 @ApplicationScoped
