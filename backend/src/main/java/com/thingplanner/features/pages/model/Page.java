@@ -1,6 +1,7 @@
 package com.thingplanner.features.pages.model;
 
 
+import com.thingplanner.features.organization.model.Organization;
 import com.thingplanner.features.things.model.Thing;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import io.quarkus.panache.common.Parameters;
@@ -18,6 +19,10 @@ public class Page extends PanacheEntityBase {
 
     @Column(name = "title")
     public String title;
+
+    @ManyToOne
+    @JoinColumn(name = "organization_id")
+    public Organization organization;
 
     @ManyToOne
     @JoinColumn(name = "thing_id")
