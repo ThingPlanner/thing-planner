@@ -41,7 +41,13 @@ class CreatePageApi {
 }
 
 
-record CreatePageRequest() {}
+record CreatePageRequest (
+        UUID id,
+        String title,
+        Organization organization,
+        Thing thing,
+        Page parent
+) {}
 
 record CreatePageResponse() {}
 
