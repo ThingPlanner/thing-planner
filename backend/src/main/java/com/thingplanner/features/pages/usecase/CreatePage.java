@@ -55,4 +55,22 @@ record CreatePageResponse (
 
 
 @ApplicationScoped
-class CreatePageService {}
+class CreatePageService {
+
+    public boolean createPage(CreatePageRequest request) {
+        Page page = new Page();
+        page.id = UUID.randomUUID();
+        page.title = request.title();
+        page.organization = request.organization();
+        page.thing = request.thing();
+        page.parent = request.parent();
+        page.url = "/" + request.organization().id + "/" + request.thing().id + "/" + page.id;
+
+        try {
+            Page.persist(page);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+}
