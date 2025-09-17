@@ -36,6 +36,9 @@ class GetPageApi {
         }
     }
 
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/get")
     public Response getPages(GetPageRequest request) {
         try {
