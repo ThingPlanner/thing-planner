@@ -60,4 +60,40 @@ record UpdatePageRequest (
 @ApplicationScoped
 class UpdatePageService {
 
+    //TODO: Abstract this an equivalent in UpdateEvent usecase to poly class with generics.
+    public boolean updatePage(UpdatePageRequest request) {
+        boolean exists = findByIdOptional(request.id())
+                .isPresent();
+
+        if (exists) {
+            Page page = new Page();
+            mapFieldsToUpdate(request, page);
+            try {
+                page.persistAndFlush();
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    private void mapFieldsToUpdate(UpdatePageRequest request, Page page) {
+        if (!request.title().isBlank() || !request.title().isEmpty()) {
+            page.title = request.title();
+        }
+        if (!(request.organization() == null) && !(request.organization().name.isBlank())) {
+            page.organization = request.organization();
+        }
+        if (!(request.thing() == null) && !(request.thing().name.isBlank())) {
+            page.thing = request.thing();
+        }
+        if (!(request.parent() == null) && !(request.parent().title.isBlank())) {
+            page.parent = request.parent();
+        }
+        if (!(request.url() == null) && !(request.url().isBlank())) {
+            page.url = request.url();
+        }
+    }
+
 }
