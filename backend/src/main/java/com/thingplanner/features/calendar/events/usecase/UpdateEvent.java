@@ -4,7 +4,7 @@ import com.sun.jdi.InvalidTypeException;
 
 import com.thingplanner.features.calendar.events.model.Event;
 import com.thingplanner.features.calendar.events.model.EventType;
-import com.thingplanner.shared.Response.MessageResponse;
+import com.thingplanner.shared.response.MessageResponse;
 import jakarta.annotation.Resource;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
