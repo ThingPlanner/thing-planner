@@ -1,6 +1,6 @@
 package com.thingplanner.features.calendar.events.usecase;
 
-import com.thingplanner.shared.Response.MessageResponse;
+import com.thingplanner.shared.response.MessageResponse;
 import com.thingplanner.features.calendar.events.model.Event;
 import jakarta.annotation.Resource;
 import jakarta.enterprise.context.ApplicationScoped;
