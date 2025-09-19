@@ -1,4 +1,4 @@
-package com.thingplanner.shared.Response;
+package com.thingplanner.shared.response;
 
 public record MessageResponse(
         String message,
