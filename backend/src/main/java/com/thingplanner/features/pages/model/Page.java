@@ -50,5 +50,4 @@ public class Page extends PanacheEntityBase {
     public static List<Page> findPages(String query, Parameters params) {
         return list(query, params);
     }
-
 }
