@@ -47,4 +47,7 @@ class DeleteOrganizationService {
         }
     }
 
+    private boolean exists(UUID id) {
+        return Organization.count("id", id) > 0;
+    }
 }
