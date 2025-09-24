@@ -5,6 +5,7 @@ import com.thingplanner.features.calendar.events.model.Event;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Entity
@@ -17,4 +18,8 @@ public class Organization extends PanacheEntityBase {
     @Column(name = "name")
     public String name;
 
+
+    public static Optional<Organization> findOrgByIdOptional(UUID id) {
+        return findByIdOptional(id);
+    }
 }
