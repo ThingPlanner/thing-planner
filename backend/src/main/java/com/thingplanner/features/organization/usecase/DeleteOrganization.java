@@ -36,3 +36,15 @@ class DeleteOrganizationApi {
     }
 }
 
+@ApplicationScoped
+class DeleteOrganizationService {
+
+    public boolean delete(UUID id) {
+        if (exists(id)) {
+            return Organization.deleteById(id);
+        } else {
+            return false;
+        }
+    }
+
+}
