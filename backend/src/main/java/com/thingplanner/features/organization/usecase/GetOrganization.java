@@ -36,3 +36,20 @@ class GetOrganizationApi {
     }
 
 }
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/get")
+    public Response getOrganization(GetOrganizationRequest request) {
+        try {
+            List<GetOrganizationResponse> response = service.get(request);
+            return Response.status(200)
+                    .entity(response)
+                    .build();
+        } catch (RuntimeException e) {
+            return Response.status(404)
+                    .entity(new MessageResponse("Failure", "Could not get organizations by specified criteria"))
+                    .build();
+        }
+    }
+}
