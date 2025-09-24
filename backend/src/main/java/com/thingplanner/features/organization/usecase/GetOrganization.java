@@ -58,3 +58,8 @@ record GetOrganizationRequest (
         String name
 ) {}
 
+record GetOrganizationResponse (
+        UUID id,
+        String name
+) {}
+
