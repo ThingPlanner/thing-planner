@@ -63,3 +63,14 @@ record GetOrganizationResponse (
         String name
 ) {}
 
+@ApplicationScoped
+class GetOrganizationService {
+
+    public GetOrganizationResponse getById(UUID id) {
+        return Organization.<Organization>findByIdOptional(id)
+                .map(organization -> new GetOrganizationResponse(
+                        organization.id,
+                        organization.name
+                ))
+                .orElse(null);
+    }
