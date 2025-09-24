@@ -35,7 +35,6 @@ class GetOrganizationApi {
         }
     }
 
-}
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -53,3 +52,9 @@ class GetOrganizationApi {
         }
     }
 }
+
+record GetOrganizationRequest (
+        UUID id,
+        String name
+) {}
+
