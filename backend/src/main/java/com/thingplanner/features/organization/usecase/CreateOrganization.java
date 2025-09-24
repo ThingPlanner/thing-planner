@@ -1,6 +1,10 @@
 package com.thingplanner.features.organization.usecase;
 
 
+record CreateOrganizationRequest (
+        String name
+) {}
+
 @ApplicationScoped
 class CreateOrganizationService {
     public boolean create(CreateOrganizationRequest request) {
