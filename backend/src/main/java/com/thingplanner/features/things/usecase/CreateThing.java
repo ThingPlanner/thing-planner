@@ -40,4 +40,16 @@ class CreateThingApi {
 record CreateThingRequest (String name) {}
 
 @ApplicationScoped
-class CreateThingService {}
+class CreateThingService {
+
+    public boolean create(CreateThingRequest request) {
+        try {
+            Thing thing = new Thing();
+            thing.name = request.name();
+            thing.persistAndFlush();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+}
