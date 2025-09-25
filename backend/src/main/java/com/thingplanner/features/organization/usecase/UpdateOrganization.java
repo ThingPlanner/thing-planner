@@ -38,3 +38,24 @@ class UpdateOrganizationApi {
     }
 }
 
+@ApplicationScoped
+class UpdateOrganizationService {
+    public boolean update(UpdateOrganizationRequest request) {
+
+        if (!exists(request.id())) {
+            return false;
+        }
+
+        try {
+            Organization organization = new Organization();
+            if (!request.name().isBlank() || !request.name().isEmpty()) {
+                organization.name = request.name();
+            }
+            organization.persistAndFlush();
+        } catch (Exception e) {
+            throw new RuntimeException("Could not persist Organization.");
+        }
+        return true;
+    }
+
+}
