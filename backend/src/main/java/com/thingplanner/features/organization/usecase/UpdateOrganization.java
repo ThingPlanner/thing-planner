@@ -38,6 +38,9 @@ class UpdateOrganizationApi {
     }
 }
 
+record UpdateOrganizationRequest (
+        @NotNull UUID id, String name) {}
+
 @ApplicationScoped
 class UpdateOrganizationService {
     public boolean update(UpdateOrganizationRequest request) {
