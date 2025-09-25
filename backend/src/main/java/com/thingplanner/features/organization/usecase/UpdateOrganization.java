@@ -61,4 +61,8 @@ class UpdateOrganizationService {
         return true;
     }
 
+    private boolean exists(UUID id) {
+        return Organization.<Organization>findByIdOptional(id)
+                .isPresent();
+    }
 }
