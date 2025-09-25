@@ -2,6 +2,7 @@ package com.thingplanner.features.things.usecase;
 
 
 import com.thingplanner.shared.response.MessageResponse;
+import io.quarkus.runtime.annotations.ConfigDocDefault;
 import jakarta.annotation.Resource;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
