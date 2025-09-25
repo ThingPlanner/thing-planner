@@ -37,7 +37,7 @@ class CreateThingApi {
     }
 }
 
-record CreateThingRequest () {}
+record CreateThingRequest (String name) {}
 
 @ApplicationScoped
 class CreateThingService {}
