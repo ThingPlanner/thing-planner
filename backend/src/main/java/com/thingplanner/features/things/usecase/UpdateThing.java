@@ -39,7 +39,9 @@ class UpdateThingApi {
         }
     }
 
-record UpdateThingRequest () {}
+}
+
+record UpdateThingRequest (@NotNull UUID id, String name) {}
 
 record UpdateThingResponse () {}
 
