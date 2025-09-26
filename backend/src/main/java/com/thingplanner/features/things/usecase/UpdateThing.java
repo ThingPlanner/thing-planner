@@ -46,4 +46,28 @@ record UpdateThingRequest (@NotNull UUID id, String name) {}
 record UpdateThingResponse () {}
 
 @ApplicationScoped
-class UpdateThingService {}
+class UpdateThingService {
+    public boolean update(UpdateThingRequest request) {
+
+        if (!exists(request.id())) {
+            return false;
+        }
+
+        try {
+            Thing thing = new Thing();
+            if (!request.name().isBlank() || !request.name().isEmpty()) {
+                thing.name = request.name();
+            }
+            thing.persistAndFlush();
+        } catch (Exception e) {
+            throw new RuntimeException("Could not persist Thing.");
+        }
+        return true;
+    }
+
+    private boolean exists(UUID id) {
+        return Thing.<Thing>findByIdOptional(id)
+                .isPresent();
+    }
+
+}
