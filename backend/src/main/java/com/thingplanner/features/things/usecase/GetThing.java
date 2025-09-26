@@ -1,6 +1,7 @@
 package com.thingplanner.features.things.usecase;
 
 
+import com.thingplanner.features.things.model.Thing;
 import com.thingplanner.shared.response.MessageResponse;
 import io.quarkus.runtime.annotations.ConfigDocDefault;
 import jakarta.annotation.Resource;
@@ -41,4 +42,14 @@ record GetThingRequest () {}
 record GetThingResponse() {}
 
 @ApplicationScoped
-class GetThingService {}
+class GetThingService {
+
+    public GetThingResponse getById(UUID id) {
+        return Thing.<Thing>findByIdOptional(id)
+                .map(thing -> new GetThingResponse(
+                        thing.id,
+                        thing.name
+                        ))
+                .orElse(null);
+    }
+}
