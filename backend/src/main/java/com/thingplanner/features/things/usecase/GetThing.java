@@ -39,7 +39,7 @@ class GetThingApi {
 
 record GetThingRequest () {}
 
-record GetThingResponse() {}
+record GetThingResponse(UUID id, String name) {}
 
 @ApplicationScoped
 class GetThingService {
