@@ -37,7 +37,7 @@ class GetThingApi {
     }
 }
 
-record GetThingRequest () {}
+record GetThingRequest (UUID id, String name) {}
 
 record GetThingResponse(UUID id, String name) {}
 
