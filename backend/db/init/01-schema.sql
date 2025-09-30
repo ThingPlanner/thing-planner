@@ -2,7 +2,7 @@
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-CREATE TABLE IF NOT EXISTS organization (
+CREATE TABLE IF NOT EXISTS organizations (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name VARCHAR (30) NOT NULL
 );
@@ -29,19 +29,20 @@ CREATE TABLE IF NOT EXISTS events (
 );
 
 CREATE TABLE IF NOT EXISTS pages (
-    id UUID DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     title VARCHAR(50) NOT NULL,
     thing_id UUID DEFAULT uuid_generate_v4(),
     organization_id UUID DEFAULT uuid_generate_v4(),
-    PRIMARY KEY (id, thing_id, organization_id),
     CONSTRAINT fk_thing
         FOREIGN KEY (thing_id) REFERENCES things (id)
         ON DELETE CASCADE,
     CONSTRAINT fk_org
-        FOREIGN KEY (organization_id) REFERENCES organization (id)
+        FOREIGN KEY (organization_id) REFERENCES organizations (id)
         ON DELETE CASCADE,
     parent_id UUID,
-    url TEXT NOT NULL
+    CONSTRAINT fk_parent
+        FOREIGN KEY (parent_id) REFERENCES pages (id)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS organizations_events (
@@ -49,7 +50,7 @@ CREATE TABLE IF NOT EXISTS organizations_events (
     event_id UUID NOT NULL,
     PRIMARY KEY (organization_id, event_id),
     CONSTRAINT fk_org
-        FOREIGN KEY (organization_id) REFERENCES organization (id)
+        FOREIGN KEY (organization_id) REFERENCES organizations (id)
         ON DELETE CASCADE ,
     CONSTRAINT fk_event
         FOREIGN KEY (event_id) REFERENCES events (id)
@@ -61,7 +62,7 @@ CREATE TABLE IF NOT EXISTS organizations_pages (
     event_id UUID NOT NULL,
     PRIMARY KEY (organization_id, event_id),
     CONSTRAINT fk_org
-        FOREIGN KEY (organization_id) REFERENCES organization (id)
+        FOREIGN KEY (organization_id) REFERENCES organizations (id)
         ON DELETE CASCADE,
     CONSTRAINT fk_event
         FOREIGN KEY (event_id) REFERENCES events (id)
