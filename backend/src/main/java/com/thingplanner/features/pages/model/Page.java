@@ -14,7 +14,7 @@ import java.util.UUID;
 @Table (name = "pages")
 public class Page extends PanacheEntityBase {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.UUID)
     public UUID id;
 
     @Column(name = "title")
