@@ -20,6 +20,9 @@ dependencies {
     implementation("jakarta.validation:jakarta.validation-api:3.1.1") // https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api
     implementation("jakarta.persistence:jakarta.persistence-api:3.2.0") // https://mvnrepository.com/artifact/jakarta.persistence/jakarta.persistence-api
     implementation("io.quarkus:quarkus-hibernate-orm-panache:3.26.2") // https://mvnrepository.com/artifact/io.quarkus/quarkus-hibernate-orm-panache
+    implementation("io.quarkus:quarkus-rest-jackson:3.28.1")
+    implementation("io.quarkus:quarkus-swagger-ui") // https://mvnrepository.com/artifact/io.quarkus/quarkus-swagger-ui
+    implementation("io.quarkus:quarkus-smallrye-openapi")
 
     testImplementation("io.quarkus:quarkus-junit5")
     testImplementation("io.rest-assured:rest-assured") // https://mvnrepository.com/artifact/io.quarkus/quarkus-junit5-mockito
