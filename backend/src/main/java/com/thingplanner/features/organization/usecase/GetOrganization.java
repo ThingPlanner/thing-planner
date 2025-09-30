@@ -57,15 +57,9 @@ class GetOrganizationApi {
     }
 }
 
-record GetOrganizationRequest (
-        UUID id,
-        String name
-) {}
+record GetOrganizationRequest (UUID id, String name) {}
 
-record GetOrganizationResponse (
-        UUID id,
-        String name
-) {}
+record GetOrganizationResponse (UUID id, String name) {}
 
 @ApplicationScoped
 class GetOrganizationService {
