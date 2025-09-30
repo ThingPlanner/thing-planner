@@ -82,9 +82,10 @@ class CreateEventService {
                 .orElseThrow(() -> new MalformedRequestException("Could not build event from request."));
         try {
             event.persistAndFlush();
-            return new AddEventResponse("Success", "Event created successfully.");
+            return true;
         } catch (Exception e) {
-            throw new RuntimeException("Could not save event.", e);
+            Log.error("Failed to persist Event entity", e);
+            return false;
         }
     }
 }
