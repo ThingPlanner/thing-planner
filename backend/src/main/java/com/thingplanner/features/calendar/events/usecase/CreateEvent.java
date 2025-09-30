@@ -6,6 +6,7 @@ import com.thingplanner.features.calendar.events.model.Event;
 import com.thingplanner.features.calendar.events.model.EventType;
 import jakarta.annotation.Resource;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
@@ -78,7 +79,8 @@ class AddService {
         return Optional.of(event);
     }
 
-    public AddEventResponse add(AddEventRequest request) {
+    @Transactional
+    public boolean create(CreateEventRequest request) {
         var event = buildEvent(request)
                 .orElseThrow(() -> new MalformedRequestException("Could not build event from request."));
         try {
