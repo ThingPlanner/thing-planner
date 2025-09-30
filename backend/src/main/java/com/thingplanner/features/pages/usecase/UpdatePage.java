@@ -91,9 +91,5 @@ class UpdatePageService {
         if (!(request.parent() == null) && !(request.parent().title.isBlank())) {
             page.parent = request.parent();
         }
-        if (!(request.url() == null) && !(request.url().isBlank())) {
-            page.url = request.url();
-        }
     }
-
 }
