@@ -32,13 +32,6 @@ public class Page extends PanacheEntityBase {
     @JoinColumn(name = "parent_id")
     public Page parent;
 
-    @Column(name = "url")
-    public String url;
-
-    public static Page findById(UUID id) {
-        return PanacheEntityBase.find("id", id).firstResult();
-    }
-
     public static Page findPageByIdOptional(UUID id) {
         return Page.findById(id);
     }
