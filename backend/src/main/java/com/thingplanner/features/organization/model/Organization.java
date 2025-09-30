@@ -24,4 +24,8 @@ public class Organization extends PanacheEntityBase {
     public static Optional<Organization> findOrgByIdOptional(UUID id) {
         return findByIdOptional(id);
     }
+
+    public static List<Organization> findAllOrganizations(String query, Parameters params) {
+        return list(query, params);
+    }
 }
