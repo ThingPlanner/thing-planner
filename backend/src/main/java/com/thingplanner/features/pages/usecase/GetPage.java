@@ -1,5 +1,6 @@
 package com.thingplanner.features.pages.usecase;
 
+import com.thingplanner.features.organization.model.Organization;
 import com.thingplanner.features.pages.model.Page;
 import com.thingplanner.features.things.model.Thing;
 import jakarta.annotation.Resource;
@@ -66,9 +67,9 @@ record GetPageRequest (
 record GetPageResponse (
         UUID id,
         String title,
+        Organization organization,
         Thing thing,
-        Page parent,
-        String url
+        Page parent
 ) {}
 
 
@@ -81,9 +82,9 @@ class GetPageService {
         return new GetPageResponse(
                 page.id,
                 page.title,
+                page.organization,
                 page.thing,
-                page.parent,
-                page.url
+                page.parent
         );
     }
 
@@ -96,9 +97,9 @@ class GetPageService {
                 .map(p -> new GetPageResponse(
                         p.id,
                         p.title,
+                        p.organization,
                         p.thing,
-                        p.parent,
-                        p.url
+                        p.parent
                 )).toList();
     }
 }
