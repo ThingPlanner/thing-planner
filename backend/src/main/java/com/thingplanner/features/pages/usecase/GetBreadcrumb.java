@@ -35,15 +35,8 @@ class GetBreadcrumbAPI {
     }
 }
 
-
-record GetBreadcrumbResponse(
-        UUID id,
-        String title,
-        Thing thing,
-        Page parent,
-        String url
-) {}
-
+record GetBreadcrumbResponse(UUID id, String title, Organization organization,
+        Thing thing, Page parent) {}
 
 @ApplicationScoped
 class GetBreadcrumbService {
