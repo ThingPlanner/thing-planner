@@ -43,11 +43,13 @@ class CreatePageApi {
 
 
 record CreatePageRequest (
-        UUID id,
+        @NotNull
         String title,
-        Organization organization,
-        Thing thing,
-        Page parent
+        @NotNull
+        UUID organizationId,
+        @NotNull
+        UUID thingId,
+        UUID parentId
 ) {}
 
 record CreatePageResponse (
