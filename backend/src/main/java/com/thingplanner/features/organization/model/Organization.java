@@ -3,13 +3,15 @@ package com.thingplanner.features.organization.model;
 
 import com.thingplanner.features.calendar.events.model.Event;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import io.quarkus.panache.common.Parameters;
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Entity
-@Table(name = "organization")
+@Table(name = "organizations")
 public class Organization extends PanacheEntityBase {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
