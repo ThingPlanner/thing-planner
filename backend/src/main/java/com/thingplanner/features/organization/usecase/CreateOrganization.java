@@ -4,6 +4,7 @@ import com.thingplanner.features.organization.model.Organization;
 import jakarta.annotation.Resource;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -41,6 +42,8 @@ record CreateOrganizationRequest (
 
 @ApplicationScoped
 class CreateOrganizationService {
+
+    @Transactional
     public boolean create(CreateOrganizationRequest request) {
         try {
             Organization organization = new Organization();
