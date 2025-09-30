@@ -5,6 +5,7 @@ import com.thingplanner.shared.response.MessageResponse;
 import jakarta.annotation.Resource;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -42,6 +43,7 @@ record CreateThingRequest (String name) {}
 @ApplicationScoped
 class CreateThingService {
 
+    @Transactional
     public boolean create(CreateThingRequest request) {
         try {
             Thing thing = new Thing();
