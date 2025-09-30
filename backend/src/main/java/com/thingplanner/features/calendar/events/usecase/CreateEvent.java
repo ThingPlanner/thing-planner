@@ -22,12 +22,9 @@ import java.util.Optional;
 
 @Resource
 @Path("/events")
-class AddEventApi {
-    private final AddService addService;
-
-    public AddEventApi(AddService addService) {
-        this.addService = addService;
-    }
+class CreateEventApi {
+    @Inject
+    CreateEventService service;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -42,7 +39,7 @@ class AddEventApi {
     }
 }
 
-record AddEventRequest(
+record CreateEventRequest(
         @NotNull(message = "Event name cannot be null")
         @Size(min = 1, message = "Event name cannot be empty")
         String name,
@@ -58,13 +55,13 @@ record AddEventRequest(
         ZonedDateTime endDateTime
 ) {};
 
-record AddEventResponse (
+record CreateEventResponse(
         String message,
         String details
 ) {};
 
 @ApplicationScoped
-class AddService {
+class CreateEventService {
 
     private Optional<Event> buildEvent(AddEventRequest request) {
         var id = UUID.randomUUID();
