@@ -54,14 +54,13 @@ record CreateEventRequest(
         @Size(min = 1, message = "Event name cannot be empty")
         String name,
 
-        @NotNull(message = "Event name cannot be null")
+        @NotNull(message = "Event Type cannot be null")
         EventType eventType,
 
-        @NotNull(message = "Event name cannot be null")
-
+        @NotNull(message = "Start time cannot be null")
         ZonedDateTime startDateTime,
 
-        @NotNull(message = "Event name cannot be null")
+        @NotNull(message = "End time cannot be null")
         ZonedDateTime endDateTime
 ) {};
 
