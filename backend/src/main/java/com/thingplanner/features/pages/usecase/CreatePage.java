@@ -20,14 +20,14 @@ import java.util.UUID;
 @Path("/pages")
 class CreatePageApi {
 
-    @Inject CreatePageService createPageService;
+    @Inject CreatePageService service;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/create")
-    public Response createPage(CreatePageRequest request) {
-            boolean created = createPageService.createPage(request);
+    public Response createPage(@Valid CreatePageRequest request) {
+            boolean created = service.create(request);
 
             if (created) {
                 return Response.status(201)
