@@ -1,11 +1,13 @@
 package com.thingplanner.features.calendar.events.usecase;
 
 import com.thingplanner.features.calendar.events.bootstrap.exception.MalformedRequestException;
-import com.thingplanner.features.calendar.events.model.EventRepository;
 import com.thingplanner.features.calendar.events.model.Event;
 import com.thingplanner.features.calendar.events.model.EventType;
+import com.thingplanner.shared.response.MessageResponse;
+import io.quarkus.logging.Log;
 import jakarta.annotation.Resource;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -15,6 +17,8 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import jakarta.ws.rs.core.Response;
+
 import java.util.UUID;
 
 import java.time.ZonedDateTime;
@@ -30,11 +34,17 @@ class CreateEventApi {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/add")
-    public AddEventResponse add(@Valid AddEventRequest request) throws RuntimeException {
-        try {
-            return addService.add(request);
-        } catch (RuntimeException e){
-            return new AddEventResponse("Failure", "Could not add new event.");
+    public Response createEvent(@Valid CreateEventRequest request) throws RuntimeException {
+        boolean isCreated = service.create(request);
+
+        if (isCreated) {
+            return Response.status(200)
+                    .entity(new MessageResponse("Success", "Event created."))
+                    .build();
+        } else {
+            return Response.status(409)
+                    .entity(new MessageResponse("Failure", "Unable to create new Event."))
+                    .build();
         }
     }
 }
