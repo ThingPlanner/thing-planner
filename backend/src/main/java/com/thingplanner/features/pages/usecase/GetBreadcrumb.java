@@ -71,6 +71,7 @@ class GetBreadcrumbService {
             }
         }
 
-        return breadcrumb;
+    private boolean exists(UUID id) {
+        return Page.count("id", id) > 0;
     }
 }
