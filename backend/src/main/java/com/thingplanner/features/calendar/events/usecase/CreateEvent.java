@@ -72,7 +72,7 @@ record CreateEventResponse(
 @ApplicationScoped
 class CreateEventService {
 
-    private Optional<Event> buildEvent(AddEventRequest request) {
+    private Optional<Event> buildEvent(CreateEventRequest request) {
         var id = UUID.randomUUID();
 
         var event = new Event();
