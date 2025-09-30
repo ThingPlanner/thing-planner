@@ -1,9 +1,9 @@
 package com.thingplanner.features.pages.usecase;
 
 
+import com.thingplanner.features.organization.model.Organization;
 import com.thingplanner.features.pages.model.Page;
 import com.thingplanner.features.things.model.Thing;
-import io.quarkus.panache.common.Parameters;
 import jakarta.annotation.Resource;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -11,9 +11,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import java.util.ArrayList;
-import java.util.UUID;
-import java.util.List;
+import java.util.*;
 
 @Resource
 @Path("/pages/breadcrumb")
@@ -27,7 +25,7 @@ class GetBreadcrumbAPI {
     @Path("/get{pageId}")
     public Response getBreadcrumbResponse(@PathParam("pageId") UUID pageId ) {
         try {
-            List<GetBreadcrumbResponse> responses = getBreadcrumbService.getBreadcrumb(pageId);
+            Stack<GetBreadcrumbResponse> responses = getBreadcrumbService.getBreadcrumb(pageId);
             return Response.status(200).entity(responses).build();
         } catch (Exception e) {
             return Response.status(404)
@@ -50,26 +48,36 @@ record GetBreadcrumbResponse(
 @ApplicationScoped
 class GetBreadcrumbService {
 
-    public List<GetBreadcrumbResponse> getBreadcrumb(UUID pageId) {
-        List<GetBreadcrumbResponse> breadcrumb = new ArrayList<>();
+    public Stack<GetBreadcrumbResponse> getBreadcrumb(UUID pageId) {
+        if (!exists(pageId)) {
+            return null;
+        }
 
-        Page current = Page.findPage("id = ?1", Parameters.with("id", pageId));
+        Stack<GetBreadcrumbResponse> breadcrumbTrail = new Stack<>();
+        Optional<Page> pageOptional = Page.<Page>findByIdOptional(pageId);
 
-        while (current != null) {
-            breadcrumb.addFirst(new GetBreadcrumbResponse(
-                    current.id,
-                    current.title,
-                    current.thing,
-                    current.parent,
-                    current.url
-            ));
+        while (pageOptional.isPresent()) {
+            Page currentPage = pageOptional.get();
 
-            if (current.parent.id != null) {
-                current = Page.findById(current.parent.id);
+            GetBreadcrumbResponse breadcrumb = new GetBreadcrumbResponse(
+                    currentPage.id,
+                    currentPage.title,
+                    currentPage.organization,
+                    currentPage.thing,
+                    currentPage.parent
+            );
+
+            breadcrumbTrail.push(breadcrumb);
+
+            if (currentPage.parent != null) {
+                pageOptional = Page.findByIdOptional(currentPage.parent.id);
             } else {
-                current = null;
+                break;
             }
         }
+
+        return breadcrumbTrail;
+    }
 
     private boolean exists(UUID id) {
         return Page.count("id", id) > 0;
