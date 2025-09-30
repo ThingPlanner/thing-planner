@@ -6,10 +6,10 @@ import com.thingplanner.features.things.model.Thing;
 import jakarta.annotation.Resource;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -57,7 +57,8 @@ record CreatePageResponse (
 @ApplicationScoped
 class CreatePageService {
 
-    public boolean createPage(CreatePageRequest request) {
+    @Transactional
+    public boolean create(CreatePageRequest request) {
         Page page = new Page();
         page.id = UUID.randomUUID();
         page.title = request.title();
