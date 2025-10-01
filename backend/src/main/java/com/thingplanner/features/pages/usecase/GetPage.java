@@ -23,7 +23,7 @@ class GetPageApi {
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/get{pageId}")
+    @Path("/get/{pageId}")
     public Response getPageById(@PathParam("pageId") UUID pageId) {
         try {
             GetPageResponse response = getPageService.getPageById(pageId);
