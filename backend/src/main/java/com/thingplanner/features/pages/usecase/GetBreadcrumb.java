@@ -22,7 +22,7 @@ class GetBreadcrumbAPI {
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/get{pageId}")
+    @Path("/get/{pageId}")
     public Response getBreadcrumbResponse(@PathParam("pageId") UUID pageId ) {
         try {
             Stack<GetBreadcrumbResponse> responses = getBreadcrumbService.getBreadcrumb(pageId);
