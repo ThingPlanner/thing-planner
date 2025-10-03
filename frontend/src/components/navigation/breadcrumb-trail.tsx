@@ -18,7 +18,7 @@ export function BreadcrumbTrail({ pages }: BreadcrumbProps) {
             <BreadcrumbList>
                 {pages.map((page: PageMetadata, idx: number) => (
                     <BreadcrumbItem key={page.id}>
-                    <Link to={`/pages/${page.id}`} className={"cursor-pointer"}>
+                    <Link to={`/page/${page.id}`} className={"cursor-pointer"}>
                         {page.title}
                     </Link>
                     {idx < pages.length - 1 && <BreadcrumbSeparator />}
