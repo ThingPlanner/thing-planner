@@ -6,7 +6,7 @@ ThingPlanner is the ultimate productivity and organisation tool, affording you t
 
 ----------------------------------------------------------------------------------------------------------------------
 
-## ⚙️ Installation and Build
+## ⚙️ Build
 
 ThingPlanner's frontend is built with React.js. [Node.js](https://nodejs.org/en/download) version 22.x is required.
 
@@ -16,4 +16,24 @@ ThingPlanner's frontend is built with React.js. [Node.js](https://nodejs.org/en/
 git clone https://github.com/ThingPlanner/thing-planner.git \ 
 cd thing-planner/frontend \
 npm install
+```
+
+**Run in DevMode**
+```shell
+npm run dev
+```
+
+### Backend
+
+#### Database
+```shell
+cd .. \
+cd backend/db && docker compose up -v
+```
+
+#### Quarkus 
+**Run in DevMode**
+```shell
+cd .. \
+./gradlew run quarkusDev 
 ```
