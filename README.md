@@ -1,5 +1,5 @@
 # ThingPlanner
-<img alt="build" src="https://img.shields.io/github/actions/workflow/status/ThingPlanner/thing-planner/quarkus-tests.yml?branch=main&label=backend" />
+<img alt="build" src="https://github.com/ThingPlanner/thing-planner/actions/workflows/quarkus-test.yml/badge.svg?branch=main&label=backend" />
 
 ThingPlanner is the ultimate productivity and organization tool, affording users a modular, block-based system for creating dynamic workspaces, documentation, and project management dashboards.
 
