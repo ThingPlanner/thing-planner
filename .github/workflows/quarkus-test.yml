@@ -1,4 +1,4 @@
-name: quarkus-test.yml
+name: build
 on: [push, fork, pull_request]
 
 jobs:
