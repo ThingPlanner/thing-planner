@@ -12,6 +12,7 @@ ThingPlanner is the ultimate productivity and organization tool, affording users
 <img alt="quarkus" src="https://img.shields.io/badge/-Quarkus-4695EB?style=flat&logo=quarkus&logoColor=white">
 <img alt="postgres" src="https://img.shields.io/badge/postgresql-4169e1?&logo=postgresql&logoColor=white">
 <img alt="mongodb" src="https://img.shields.io/badge/-MongoDB-13aa52?&logo=mongodb&logoColor=white">
+<img alt="keycloak" src="https://img.shields.io/badge/Keycloak-26.4.5-blue">
 <img alt="aws" src="https://img.shields.io/badge/-AWS-FF9900?&logo=aws&logoColor=000000">
 <img alt="azure" src="https://img.shields.io/badge/-Azure-007FFF?&logo=&logoColor=000000">
 <img alt="ubuntu" src="https://img.shields.io/badge/Ubuntu-E95420?&logo=Ubuntu&logoColor=white">
