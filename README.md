@@ -1,5 +1,5 @@
 # ThingPlanner
-<img alt="build" src="https://img.shields.io/github/actions/workflow/status/ThingPlanner/thing-planner/quarkus-tests.yml?branch=main&label=backend" />
+<img alt="Build" src="https://github.com/ThingPlanner/thing-planner/actions/workflows/quarkus-test.yml/badge.svg?branch=main" />
 
 ThingPlanner is the ultimate productivity and organization tool, affording users a modular, block-based system for creating dynamic workspaces, documentation, and project management dashboards.
 
@@ -24,8 +24,8 @@ ThingPlanner is the ultimate productivity and organization tool, affording users
 #### 🔨 Run in Dev / Test mode
 **Frontend**
 ```shell
-cd frontend \
-npm install \ 
+cd frontend
+npm install
 npm run dev
 ```
 
@@ -48,13 +48,13 @@ if ! command -v docker >/dev/null 2>&1; then
   echo "[!] Error, unable to find docker installation path."
   exit 1
 else
-  cd /home/oliver/Development/thing-planner/backend/db \
+  cd /home/oliver/Development/thing-planner/backend/db 
   docker compose up -v 
 fi
 ```
 
 **Run Quarkus in**
 ```shell
-cd backend \ 
+cd backend
 ./gradlew run quarkusDev
 ```
